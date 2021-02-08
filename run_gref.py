@@ -66,6 +66,7 @@ for i in range(3):
 result = np.array(result)
 print("run {} times: accuracy mean: {}, accuracy std: {}".format(args.run_times, result.mean(), result.std()))
 
+aux = '-'.join(args.aux_graphs)
 res_df = {
     "dataset":args.dataset,
     "attack":args.attack,
@@ -73,7 +74,7 @@ res_df = {
     "k":args.k,
     "sth":args.sth,
     "tau":args.tau,
-    "aux_graphs":args.aux_graphs,
+    "aux_graphs":aux,
     "prune":args.prune,
     "reweight":args.reweight,
     "run_time":args.run_times,
