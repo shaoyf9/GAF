@@ -132,9 +132,11 @@ dmypy.json
 *.vscode
 
 # dataset
-ind.*
-pubmed*
-citeseer*
+# ind.*
+# pubmed*
+# citeseer*
 
 # test file
 test.*
+test_*
+result/
