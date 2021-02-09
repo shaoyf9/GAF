@@ -10,7 +10,7 @@ import scipy.sparse as sp
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import normalize
-from copy import copy
+from copy import deepcopy
 
 class GraphRefine:
     def __init__(self, adj, features, labels, idx_train, 
@@ -89,7 +89,7 @@ class GraphRefine:
         return adj
 
     def edge_reweighting(self, adj):
-        edge_adj = copy.deepcopy(adj)
+        edge_adj = deepcopy(adj)
         edge_adj.eliminate_zeros()
         row, col = edge_adj.nonzero()
         edge_sim = self.sim_matrix[row, col]
