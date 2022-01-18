@@ -10,10 +10,10 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--seed', type=int, default=15, help='Random seed.')
-parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'polblogs', 'pubmed'], help='dataset')
+parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'pubmed'], help='dataset')
 parser.add_argument('--attack', type=str, default='meta', choices=['meta', 'nettack', 'random'], help='attack method')
 parser.add_argument('--ptb_rate', type=float, default=0.25,  help='pertubation rate')
-parser.add_argument('--run_times', type=int, default=10, help='run times of GREF')
+parser.add_argument('--run_times', type=int, default=10, help='run times of GAF')
 parser.add_argument('--defence', type=str, default='gcn', choices=['gcn', 'gcn-jaccard', 'gcn-svd', 'rgcn', 'prognn'])
 # threshold for GCN-jaccard
 parser.add_argument('--td', type=float, default=0.01,  help='threshold')

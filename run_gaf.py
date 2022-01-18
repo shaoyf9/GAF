@@ -9,10 +9,10 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--seed', type=int, default=15, help='Random seed.')
-parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'polblogs', 'pubmed'], help='dataset')
+parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'pubmed'], help='dataset')
 parser.add_argument('--attack', type=str, default='meta', choices=['meta', 'nettack', 'random'], help='attack method')
 parser.add_argument('--ptb_rate', type=float, default=0.25,  help='pertubation rate')
-parser.add_argument('--run_times', type=int, default=10, help='run times of GREF')
+parser.add_argument('--run_times', type=int, default=10, help='run times of GAF')
 parser.add_argument('--aux_graphs', nargs='+', default=['o', 's', 'a'], help='graph for GCN, s:structural neighborhood graph, o:orignal graph, a:attributive neighborhood graph')
 parser.add_argument('--k', type=int, default=5,  help='k for ang')
 parser.add_argument('--sth', type=float, default=0.01,  help="sng for ang")

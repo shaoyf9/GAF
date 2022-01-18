@@ -28,7 +28,7 @@ parser.add_argument('--hidden', type=int, default=16,
                     help='Number of hidden units.')
 parser.add_argument('--dropout', type=float, default=0.5,
                     help='Dropout rate (1 - keep probability).')
-parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'polblogs', 'pubmed'], help='dataset')
+parser.add_argument('--dataset', type=str, default='cora', choices=['cora', 'citeseer', 'pubmed'], help='dataset')
 parser.add_argument('--ptb_rate', type=float, default=0.01,  help='pertubation rate')
 parser.add_argument('--model', type=str, default='Meta-Self',
         choices=['Meta-Self', 'A-Meta-Self', 'Meta-Train', 'A-Meta-Train'], help='model variant')
@@ -80,8 +80,8 @@ model = model.to(device)
 def tensor_to_csr(data):
     return sp.csr_matrix(data.cpu().numpy())
 
-def test_gref(adj, features, labels, idx_train, idx_val, idx_test):
-    ''' test on gref '''
+def test_gaf(adj, features, labels, idx_train, idx_val, idx_test):
+    ''' test on gaf '''
     adj, features, labels = tensor_to_csr(adj), tensor_to_csr(features), labels.numpy()
 
     print(args.k, args.sth, args.tau)
@@ -134,7 +134,7 @@ def main():
     
     modified_adj = model.modified_adj
     test_gcn(modified_adj, features, labels, idx_train, idx_val, idx_test)
-    test_gref(modified_adj, features, labels, idx_train, idx_val, idx_test)
+    test_gaf(modified_adj, features, labels, idx_train, idx_val, idx_test)
 
     modified_adj = sp.csr_matrix(modified_adj.cpu().numpy())
 

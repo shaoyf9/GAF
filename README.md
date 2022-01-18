@@ -13,13 +13,13 @@ You can see requriements in https://github.com/DSE-MSU/DeepRobust/blob/master/re
 ## Run the code
 After installation
 ```
-python run_gref.py --dataset cora --attack meta --ptb_rate 0.25
+python run_gaf.py --dataset cora --attack meta --ptb_rate 0.25
 ```
 or
 ```
-python run_gref.py --dataset cora --attack nettack --ptb_rate 5.0
+python run_gaf.py --dataset cora --attack nettack --ptb_rate 5.0
 ```
 or
 ```
-python run_gref.py --dataset cora --attack random --ptb_rate 0.2
+python run_gaf.py --dataset cora --attack random --ptb_rate 0.2
 ```
