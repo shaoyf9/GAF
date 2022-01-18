@@ -139,4 +139,4 @@ dmypy.json
 # test file
 test.*
 test_*
-result/
+result.csv

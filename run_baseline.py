@@ -1,7 +1,7 @@
 import torch
 import numpy as np
-from GREF.gref import GraphRefine
-from GREF import utils_
+from GAF.gaf import GraphRefine
+from GAF import utils_
 from deeprobust.graph.utils import *
 from deeprobust.graph import utils
 from deeprobust.graph.defense import GCN, GCNJaccard, GCNSVD, RGCN, ProGNN

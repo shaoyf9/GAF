@@ -1,8 +1,8 @@
 import torch
 import numpy as np
-from GREF.gref import GraphRefine
-from GREF import utils_
-from GREF.model import MGCN
+from GAF.gaf import GraphRefine
+from GAF import utils_
+from GAF.model import MGCN
 from deeprobust.graph.utils import *
 from deeprobust.graph import utils
 import argparse
@@ -50,8 +50,7 @@ for adj in adjs_norm:
 adjs_norm, features, labels = utils_.covert_to_tensor(adjs_norm, features, labels, device)
 
 result = []
-# for i in range(args.run_times):
-for i in range(3):
+for i in range(args.run_times):
     # Setup Joint GCN Model
     print('=================start {}-th train Joint GCN================='.format(i + 1))
     model = MGCN(nfeat=features.shape[1], nhid=16, nclass=int(labels.max()+1), device=device)
@@ -81,5 +80,5 @@ res_df = {
     "acc_mean":result.mean(),
     "acc_std":result.std()}
 import pandas as pd
-reslut_df = pd.DataFrame(res_df)
-reslut_df.to_csv("./result/result_new_es.csv",mode='a', header=False, index=False)
+reslut_df = pd.DataFrame(res_df, index=[0])
+reslut_df.to_csv("./result.csv", mode='a', header=False, index=False)

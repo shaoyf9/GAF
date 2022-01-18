@@ -9,9 +9,9 @@ from deeprobust.graph.utils import *
 from deeprobust.graph.data import Dataset
 import argparse
 
-from GREF.gref import GraphRefine
-from GREF import utils_
-from GREF.model import MGCN
+from GAF.gaf import GraphRefine
+from GAF import utils_
+from GAF.model import MGCN
 
 
 parser = argparse.ArgumentParser()
