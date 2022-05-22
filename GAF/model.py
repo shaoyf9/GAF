@@ -90,7 +90,8 @@ class GCN(nn.Module):
 
         x = F.dropout(x, self.dropout, training=self.training)
         x = self.gc2(x, adj)
-        return F.log_softmax(x, dim=1)
+        # return F.log_softmax(x, dim=1)
+        return x
 
 
 class MGCN(nn.Module):
@@ -146,7 +147,8 @@ class MGCN(nn.Module):
 
         outputs = [self.GCN(features, adj) for adj in adjs]
         output = torch.stack(outputs, dim=-1)
-        return output.mean(-1)
+        # return output.mean(-1)
+        return F.log_softmax(output.mean(-1), dim=1)
 
     def initialize(self):
         """Initialize parameters of GCN.

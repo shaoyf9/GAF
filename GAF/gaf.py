@@ -12,6 +12,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import normalize
 from copy import deepcopy
 
+
+def js(proba1, prboa2):
+    proba_mean = (proba1 + prboa2) / 2.0
+    res = (entropy(proba1, proba_mean, axis=1) + entropy(prboa2, proba_mean, axis=1)) / 2.0
+    return res
+
 class GraphRefine:
     def __init__(self, adj, features, labels, idx_train, 
                  idx_val=None, idx_test=None, k=15, sth=0.01, tau=1.0):
@@ -19,7 +25,7 @@ class GraphRefine:
         self.idx_train, self.idx_val, self.idx_test = idx_train, idx_val, idx_test
         self.features = features
         self.labels = labels
-        self.adj = adj
+        self.adj = deepcopy(adj)
         self.sim_matrix = cosine_similarity(features)
         self.adj_s = self.__construct_structure_nerghbor_graph()
         self.adj_a = self.__construct_attribute_nerghbor_graph()
@@ -82,8 +88,9 @@ class GraphRefine:
     def edge_pruning(self, adj):
         row, col = adj.nonzero()
         adj.eliminate_zeros()
-        kl_loss = entropy(self.proba[row], self.proba[col], axis=1)
-        edge_pruned = np.where(kl_loss < self.tau, 1.0, 0.0)
+        # kl_loss = entropy(self.proba[row], self.proba[col], axis=1)
+        js_loss = js(self.proba[row], self.proba[col])
+        edge_pruned = np.where(js_loss < self.tau, 1.0, 0.0)
         adj[row,  col] = edge_pruned
         adj.eliminate_zeros()
         return adj
@@ -105,6 +112,27 @@ class GraphRefine:
         edge_adj.setdiag(lam)
         edge_adj.eliminate_zeros()
         return edge_adj
+
+    # def edge_reweighting(self, adj):
+    #     edge_adj = deepcopy(adj)
+    #     edge_adj.eliminate_zeros()
+    #     row, col = edge_adj.nonzero()
+    #     # kl_loss = entropy(self.proba[row], self.proba[col], axis=1)
+    #     edge_sim = js(self.proba[row], self.proba[col])
+    #     edge_sim = np.exp(-1.0 * edge_sim)
+    #     # edge_adj[row, col] = edge_sim
+    #     edge_adj.data = edge_sim
+    #     edge_adj.setdiag(0)
+    #     edge_adj = normalize(edge_adj, axis=1, norm='l1')
+    #     degree = (edge_adj != 0).sum(1).A1
+    #     lam = 1 / (degree + 1)
+
+    #     degree_rate = (degree / (degree + 1)).reshape(-1, 1)
+    #     edge_adj = edge_adj.multiply(degree_rate)
+    #     edge_adj.setdiag(lam)
+    #     edge_adj.eliminate_zeros()
+    #     return edge_adj
+
 
     def normalize_adj(self, mx):
         """Normalize sparse adjacency matrix,
